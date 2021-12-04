@@ -1,0 +1,27 @@
+## editors
+/.idea
+/.vscode
+/*.code-workspace
+/.history
+
+## system files
+.DS_Store
+
+## npm/yarn
+node_modules/
+npm-debug.log
+
+## build artifacts
+/lib/
+/build/
+/dist/
+
+## temp folders
+/.tmp/
+/coverage/
+
+## temp files
+local.log
+
+## browserstack
+browserstack.err

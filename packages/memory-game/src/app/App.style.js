@@ -4,6 +4,7 @@ export const styles = css`
   :host {
     display: block;
     margin: 0.5rem;
+    --cardSpace: 100px;
   }
 
   .game-table {

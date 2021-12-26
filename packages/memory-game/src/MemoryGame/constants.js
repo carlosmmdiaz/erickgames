@@ -1,5 +1,6 @@
-export const HEADER_HEIGHT = 60;
-export const CARD_WIDTH = 150;
+export const HEADER_HEIGHT = 63;
+export const CARD_WIDTH = 100;
+export const CARD_GAP = 16;
 
 /**
  * Total images in the assets folder

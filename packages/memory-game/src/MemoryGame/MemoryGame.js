@@ -7,17 +7,17 @@ import { LionDialog } from "@lion/dialog";
 import { Card } from "../card/Card.js";
 import { DialogContent } from "../dialog-content/DialogContent.js";
 import { generateRandomGameTable } from "./utils.js";
-import { MAX_CARDS, HEADER_HEIGHT, CARD_WIDTH } from "./constants.js";
-import { styles } from "./App.style.js";
+import { MAX_CARDS, HEADER_HEIGHT, CARD_WIDTH, CARD_GAP } from "./constants.js";
+import { styles } from "./MemoryGame.style.js";
 
-export default class App extends ScopedElementsMixin(LitElement) {
+export class MemoryGame extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {
     return {
-      "memory-card": Card,
       "memory-button": CMMDButton,
-      "memory-header": CMMDHeader,
+      "memory-card": Card,
       "memory-dialog": LionDialog,
       "memory-dialog-content": DialogContent,
+      "memory-header": CMMDHeader,
     };
   }
 
@@ -25,12 +25,19 @@ export default class App extends ScopedElementsMixin(LitElement) {
     return styles;
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+
+    this.loadGame();
+  }
+
   loadGame() {
-    const viewportHeight = window.visualViewport.height - HEADER_HEIGHT;
+    const viewportHeight =
+      window.visualViewport.height - HEADER_HEIGHT;
     const viewportWidth = window.visualViewport.width;
 
-    const cardsByHeight = viewportHeight / CARD_WIDTH;
-    const cardsByWidth = viewportWidth / CARD_WIDTH;
+    const cardsByHeight = Math.floor(viewportHeight / (CARD_WIDTH + CARD_GAP));
+    const cardsByWidth = Math.floor(viewportWidth / (CARD_WIDTH + CARD_GAP));
     const possibleNumberOfCards = Math.floor(
       (cardsByHeight * cardsByWidth) / 2
     );
@@ -44,12 +51,6 @@ export default class App extends ScopedElementsMixin(LitElement) {
     this.loadGame();
 
     this.requestUpdate();
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-
-    this.loadGame();
   }
 
   flipCard(idCard) {
@@ -139,12 +140,12 @@ export default class App extends ScopedElementsMixin(LitElement) {
       (card) =>
         html`
           <memory-card
-            class="game-card"
             .idCard=${card.idCard}
             .imageId=${card.imageId}
-            ?flipped=${card.flipped}
             ?blocked=${card.blocked}
-            @card-flipping-over=${(e) => this.flippingCard(e)}
+            ?flipped=${card.flipped}
+            @card-flipping-over=${this.flippingCard}
+            class="game-card"
           ></memory-card>
         `
     );
@@ -152,16 +153,16 @@ export default class App extends ScopedElementsMixin(LitElement) {
 
   render() {
     return html`
-      <memory-header title="Avengers Memory Game">
-        <memory-button danger @click=${this.resetGame}> Reset </memory-button>
+      <memory-header class="header" title="Memory Game">
+        <memory-button danger @click=${this.resetGame}>Reset</memory-button>
       </memory-header>
+      <div class="game-table">${this.renderGameTable()}</div>
       <memory-dialog id="memory-dialog">
         <memory-dialog-content
           slot="content"
           @closing-dialog=${this.resetGame}
         ></memory-dialog-content>
       </memory-dialog>
-      <div class="game-table">${this.renderGameTable()}</div>
     `;
   }
 }

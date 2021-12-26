@@ -1,20 +1,24 @@
 import { css } from "lit-element";
 
+import { CARD_GAP, CARD_WIDTH } from "./constants.js";
+
 export const styles = css`
   :host {
     display: block;
-    margin: 0.5rem;
-    --cardSpace: 100px;
+    --cardSpace: ${CARD_WIDTH}px;
+  }
+
+  .header {
+    display: block;
+    padding: 0.5rem;
   }
 
   .game-table {
     display: grid;
-    grid-gap: 0.5rem;
-    row-gap: 1.5rem;
+    gap: ${CARD_GAP}px;
     grid-template-columns: repeat(auto-fill, minmax(var(--cardSpace), 1fr));
     justify-items: center;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: ${CARD_GAP}px;
   }
 
   .game-card {

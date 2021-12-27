@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit-element";
 import { ScopedElementsMixin } from "@open-wc/scoped-elements";
 
-import { MemoryGame } from "../../memory-game/index.js";
+import { MemoryGame } from "../../memory/index.js";
 
 export class App extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {

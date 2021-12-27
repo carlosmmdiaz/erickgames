@@ -13,7 +13,7 @@ export default {
     terser(),
     copy({
       assets: [
-        "./packages/memory-game/assets",
+        "./packages/memorY/assets",
         "./index.html",
         "./assets/favicons",
         "./browserconfig.xml",

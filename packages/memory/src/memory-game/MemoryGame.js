@@ -68,7 +68,7 @@ export class MemoryGame extends ScopedElementsMixin(LitElement) {
 
   resetGame() {
     this.__cards = getRandomCardFamily();
-    
+
     this.loadGame();
 
     this.requestUpdate();

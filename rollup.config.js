@@ -13,7 +13,7 @@ export default {
     terser(),
     copy({
       assets: [
-        "./packages/memorY/assets",
+        "./packages/memory/assets",
         "./index.html",
         "./assets/favicons",
         "./browserconfig.xml",
